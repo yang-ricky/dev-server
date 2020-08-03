@@ -1,3 +1,3 @@
-fetch('/list').then(response => {
-    console.log(response);
-});
+fetch('/koa/list').then(response => {
+    return response.json();
+}).then(data => console.log(data));

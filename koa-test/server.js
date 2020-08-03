@@ -11,8 +11,10 @@ const main = ctx => {
 app.use(static('.'));
 
 // 定义路由, note: 这里的use顺序会影响最终的结果
-app.use(route.get('/about', ctx => {
-  ctx.response.body = 'about';
+app.use(route.get('/koa/list', ctx => {
+  ctx.response.body = {
+  	result: 'koalist'
+  };
 }));
 
 app.use(main);

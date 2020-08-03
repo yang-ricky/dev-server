@@ -5,12 +5,18 @@ var port = "5640"
 
 var fs = require('fs');
 var express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 var app = express();
 
 // 可以直接访问静态资源文件,而不需要做任何的配置
 // . is root directory
 app.use(express.static('.'));
+
+// 根据URL 转发请求到相应的服务器
+// 例子: http://localhost:5640/api/school-proxy/list -> http://localhost:8080/api/school-proxy/list
+// 替换的仅仅是服务器域名和端口
+app.use(createProxyMiddleware('/koa/list', { target: "http://localhost:5641"}));
 
 app.use(function(req, res, next){
     if (req.path === '/') {
@@ -20,9 +26,9 @@ app.use(function(req, res, next){
     }
 });
 
-app.get('/list', function(req, res){
+app.get('/express/list', function(req, res){
     res.send({
-        result: true
+        result: "express list"
     });
 });
 
