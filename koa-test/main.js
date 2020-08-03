@@ -1,3 +1,3 @@
-fetch('/list').then(response => {
+fetch('/express/list').then(response => {
     console.log(response);
 });
