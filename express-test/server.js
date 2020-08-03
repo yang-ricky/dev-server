@@ -13,7 +13,17 @@ var app = express();
 app.use(express.static('.'));
 
 app.use(function(req, res, next){
-    loadMainPage(req, res);
+    if (req.path === '/') {
+        loadMainPage(req, res);
+    } else {
+        next();
+    }
+});
+
+app.get('/list', function(req, res){
+    res.send({
+        result: true
+    });
 });
 
 app.listen(port, host, function(e){
