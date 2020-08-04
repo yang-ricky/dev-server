@@ -34,6 +34,12 @@ app.use(route.get('/koa/list', (ctx, next) => {
   };
 }));
 
+app.use(route.get('/koa/getUser', (ctx, next) => {
+  ctx.response.body = {
+    result: 'getUser'
+  };
+}));
+
 app.use(main);
 
 
