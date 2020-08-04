@@ -16,7 +16,12 @@ app.use(express.static('.'));
 // 根据URL 转发请求到相应的服务器
 // 例子: http://localhost:5640/api/school-proxy/list -> http://localhost:8080/api/school-proxy/list
 // 替换的仅仅是服务器域名和端口
-app.use(createProxyMiddleware('/koa/list', { target: "http://localhost:5641"}));
+app.use(createProxyMiddleware('/express/getKoalist',
+    { 
+        target: "http://localhost:5641",
+        pathRewrite: {'^/express/getKoalist': '/koa/list'},
+    }
+));
 
 app.use(function(req, res, next){
     if (req.path === '/') {
@@ -29,6 +34,12 @@ app.use(function(req, res, next){
 app.get('/express/list', function(req, res){
     res.send({
         result: "express list"
+    });
+});
+
+app.get('/express/getUser', function(req, res){
+    res.send({
+        result: "getUser from express"
     });
 });
 

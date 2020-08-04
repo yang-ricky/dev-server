@@ -7,9 +7,15 @@ const bodyparser = require('koa-bodyparser')
 
 const proxyOptions = {
     targets: {
-        '/express/list': {
+        '/koa/getExpressList': {
             target: 'http://localhost:5640',
             changeOrigin: true,
+            pathRewrite: {'^/koa/getExpressList': '/express/list'},
+        },
+        '/koa/getName': {
+            target: 'http://localhost:5640',
+            changeOrigin: true,
+            pathRewrite: {'^/koa/getName': '/express/getUser'},
         },
     }
 }
@@ -36,7 +42,7 @@ app.use(route.get('/koa/list', (ctx, next) => {
 
 app.use(route.get('/koa/getUser', (ctx, next) => {
   ctx.response.body = {
-    result: 'getUser'
+    result: 'getUser from koa'
   };
 }));
 
