@@ -11,9 +11,11 @@
   "devDependencies": {
     "http-proxy-middleware": "^1.0.5",
     "koa": "^2.13.0",
+    "koa-bodyparser": "^4.3.0",
     "koa-route": "^3.2.0",
     "koa-router": "^9.1.0",
     "koa-static": "^5.0.0",
+    "koa2-proxy-middleware": "0.0.4",
     "requirejs": "^2.3.6"
   }
 }
