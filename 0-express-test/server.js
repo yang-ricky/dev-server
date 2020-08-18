@@ -5,9 +5,17 @@ var port = "5640"
 
 var fs = require('fs');
 var express = require('express');
+var rewrite = require('express-urlrewrite');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 var app = express();
+
+//works, 仅仅代表着映射到根目录, 不代表可以访问根目录下面的文件
+app.use(rewrite('/demo', '/')) 
+
+// http://localhost:5640/test/main.js -> http://localhost:5640/src/main.js
+// 在这里注意一下和app.use(express.static('.'))的顺序
+app.use(rewrite('/test/*', '/src/$1')); 
 
 // 可以直接访问静态资源文件,而不需要做任何的配置
 // . is root directory
