@@ -24,7 +24,7 @@ app.use(express.static('.'));
 // 根据URL 转发请求到相应的服务器
 // 例子: http://localhost:5640/api/school-proxy/list -> http://localhost:8080/api/school-proxy/list
 // 替换的仅仅是服务器域名和端口
-app.use(createProxyMiddleware('/express/getKoalist',
+app.use(createProxyMiddleware(['/express/getKoalist/**', '!/express/getNonexist'],
     { 
         target: "http://localhost:5641",
         pathRewrite: {'^/express/getKoalist': '/koa/list'},
@@ -37,6 +37,12 @@ app.use(function(req, res, next){
     } else {
         next();
     }
+});
+
+app.get('/express/getNonexist', function(req, res){
+    res.send({
+        result: "getNonexist"
+    });
 });
 
 app.get('/express/list', function(req, res){
